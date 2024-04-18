@@ -10,26 +10,17 @@ $lastNames = load_last_names($fullNames);
 
 $validFullNames = load_valid_names($fullNames, $firstNames, $lastNames);
 
+$uniqueValidNames = array_unique($validFullNames);
+$uniqueLastNames = array_unique($lastNames);
+$uniqueFirstNames = array_unique($firstNames);
 
-// dd($fullNames);
+$lastNameCounts = array_count_values($lastNames);
+arsort($lastNameCounts);
+$mostCommonLastNames = array_slice($lastNameCounts, 0, 5, true);
 
-// $findMe = ',';
-// echo $fullNames[0] . '<br>';
-// echo strpos($fullNames[0], $findMe) . '<br>';
-// echo substr($fullNames[0], 0, strpos($fullNames[0], $findMe));
-// exit();
-
-// Get all first names
-
-
-// dd($firstNames);
-
-// Get all last names
- 
-// dd($lastNames);
-
-// Get valid names
-
+$firstNameCounts = array_count_values($firstNames);
+arsort($firstNameCounts);
+$mostCommonFirstNames = array_slice($firstNameCounts, 0, 5, true);
 
 // ~~~~~~~~~~~~ Display results ~~~~~~~~~~~~ //
 
@@ -51,13 +42,39 @@ echo '<ul style="list-style-type:none">';
     }
 echo "</ul>";
 
-echo '<h2>Unique Names</h2>';
-$uniqueValidNames = (array_unique($validFullNames));
-echo ("<p>There are " . sizeof($uniqueValidNames) . " Unique names</p>");
+echo '<h2>Unique Full Names</h2>';
+echo "<p>There are " . sizeof($uniqueValidNames) . " unique full names</p>";
 echo '<ul style="list-style-type:none">';    
-    foreach($uniqueValidNames as $uniqueValidNames) {
-        echo "<li>$uniqueValidNames</li>";
+    foreach($uniqueValidNames as $uniqueValidName) {
+        echo "<li>$uniqueValidName</li>";
     }
+echo "</ul>";
+
+echo '<h2>Unique Last Names</h2>';
+echo "<p>There are " . sizeof($uniqueLastNames) . " unique last names</p>";
+echo '<ul style="list-style-type:none">';    
+    foreach($uniqueLastNames as $uniqueLastName) {
+        echo "<li>$uniqueLastName</li>";
+    }
+echo "</ul>";
+
+echo '<h2>Unique First Names</h2>';
+echo "<p>There are " . sizeof($uniqueFirstNames) . " unique first names</p>";
+echo '<ul style="list-style-type:none">';    
+    foreach($uniqueFirstNames as $uniqueFirstName) {
+        echo "<li>$uniqueFirstName</li>";
+    }
+echo "</ul>";
+
+echo '<h2>Most Common Last Names</h2>';
+foreach($mostCommonLastNames as $name => $count) {
+    echo "<p>$name: $count</p>";
+}
+
+echo '<h2>Most Common First Names</h2>';
+foreach($mostCommonFirstNames as $name => $count) {
+    echo "<p>$name: $count</p>";
+}
 
 ?>
 
